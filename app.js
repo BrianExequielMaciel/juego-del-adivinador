@@ -2,6 +2,7 @@ let numeroSecreto;
 let Intentos;
 let listaNumerosSorteados = [];
 let numeroMaximo = 10;
+let numeroDeIntentos = 4;
 
 function asignarTextoElemento(elemento, texto) {
   let elementoHTML = document.querySelector(elemento); //ya es una function generica
@@ -14,18 +15,24 @@ function verificarIntento() {
   if (numeroUsuario === numeroSecreto) {
     asignarTextoElemento(
       ".texto__parrafo",
-      `Acertaste! en ${Intentos} ${Intentos === 1 ? "vez" : "veces"}`
+      `Acertaste! en ${Intentos} ${Intentos === 1 ? "intento" : "intentos"} `
     );
+    document.querySelector("#intento").setAttribute("disabled", "true");
     document.getElementById("reiniciar").removeAttribute("disabled");
   } else {
     //el user no acerto
     if (numeroUsuario > numeroSecreto) {
-      asignarTextoElemento(".texto__parrafo", "El secreto es menor");
+      asignarTextoElemento(".texto__parrafo", "El numero secreto es menor");
     } else {
-      asignarTextoElemento(".texto__parrafo", "El secreto es mayor");
+      asignarTextoElemento(".texto__parrafo", "El numero secreto es mayor");
     }
     Intentos++;
     limpiarCajas();
+  }
+  if (Intentos >= numeroDeIntentos) {
+    asignarTextoElemento(".texto__parrafo", "Ya haz agotado los 3 intentos");
+    document.getElementById("reiniciar").removeAttribute("disabled");
+    document.querySelector("#intento").setAttribute("disabled", "true");
   }
 
   return;
@@ -35,6 +42,7 @@ function limpiarCajas() {
   let valorCaja = (document.querySelector("#valorUsuario").value = "");
   // valorCaja.value = "";
 }
+
 function generarNumeroSecreto() {
   let numeroGenerado = Math.floor(Math.random() * 10) + 1;
   //si el numero ya supero el maximo de la lista
@@ -47,6 +55,7 @@ function generarNumeroSecreto() {
     //si el numero generado esta en la lista
     console.log(numeroGenerado);
     console.log(listaNumerosSorteados);
+
     if (listaNumerosSorteados.includes(numeroGenerado)) {
       return generarNumeroSecreto(); //si el numero esta repetido se repite la funcion
     } else {
@@ -59,17 +68,19 @@ function condicionesIniciales() {
   asignarTextoElemento("h1", "Juego del adivinador");
   asignarTextoElemento(
     ".texto__parrafo",
-    `Indica un numero del 1 al ${numeroMaximo} `
+    `Indica un numero del 1 al ${numeroMaximo}, En tres intentos `
   );
   numeroSecreto = generarNumeroSecreto();
   Intentos = 1;
 }
+
 function reiniciarJuego() {
   limpiarCajas();
 
   condicionesIniciales();
 
   document.querySelector("#reiniciar").setAttribute("disabled", "true");
+  document.getElementById("intento").removeAttribute("disabled");
 }
 
 condicionesIniciales();

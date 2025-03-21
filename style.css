@@ -1,3 +1,16 @@
+
+
+*:root{
+    --tamaño-fuente:24px;
+    --tamaño-titulo:72px;
+    --tamaño-parrafo:32px;
+}
+
+
+
+
+
+
 * {
     box-sizing: border-box;
     margin: 0;
@@ -25,6 +38,8 @@ body::before {
     height: 100%;
     opacity: 0.4;
 }
+
+    
 
 .container {
     width: 1200px;
@@ -58,7 +73,7 @@ body::before {
     background: #1875E8;
     padding: 16px 24px;
     width: 100%;
-    font-size: 24px;
+    font-size: var(--tamaño-fuente);
     font-weight: 700;
     border: none;
     margin-top: 2rem;
@@ -84,7 +99,7 @@ body::before {
     border: none;
     color: #1875E8;
     padding: 2rem;
-    font-size: 24px;
+    font-size: var(--tamaño-fuente);
     font-weight: 700;
     font-family: 'Inter', sans-serif;
 }
@@ -96,7 +111,7 @@ body::before {
 
 h1 {
     font-family: 'Chakra Petch', sans-serif;
-    font-size: 72px;
+    font-size:var(--tamaño-titulo) ;
     padding-bottom: 3rem;
 }
 
@@ -106,6 +121,16 @@ button {
 }
 
 .texto__parrafo {
-    font-size: 32px;
+    font-size:var(--tamaño-parrafo) ;
     font-weight: 400;
+}
+
+@media (max-width: 1000px){
+    *:root{
+        --tamaño-fuente:18px;
+        --tamaño-titulo:32px;
+        --tamaño-parrafo:24px;
+    }
+    .container__imagen-persona{height: 300px;}
+    .container__boton {padding: 10px 14px;}
 }
